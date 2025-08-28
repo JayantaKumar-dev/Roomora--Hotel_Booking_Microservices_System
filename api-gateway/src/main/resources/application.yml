@@ -1,0 +1,30 @@
+server:
+  port: 5555
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: authservice-api
+          uri: lb://AUTHSERVICE
+          predicates:
+            - Path=/auth/**
+          filters:
+            - RewritePath=/auth/(?<segment>.*), /${segment}
+        
+        - id: microservice-api-1
+          uri: lb://MICROSERVICES-1
+          predicates:
+            - Path=/micro1/**
+          filters:
+            - RewritePath=/micro1/(?<segment>.*), /${segment}
+
+        - id: propertyservice-api
+          uri: lb://PROPERTYSERVICE
+          predicates:
+            - Path=/property/**
+          filters:
+            - RewritePath=/property/(?<segment>.*), /${segment}
