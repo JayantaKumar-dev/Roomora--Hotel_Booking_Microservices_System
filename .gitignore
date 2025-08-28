@@ -1,0 +1,28 @@
+# Build
+target/
+*.class
+*.jar
+*.war
+
+# Eclipse/STS
+.project
+.classpath
+.settings/
+.sts4-cache/
+
+# IntelliJ
+.idea/
+*.iml
+out/
+
+# Logs
+*.log
+
+# Node (future frontend)
+node_modules/
+dist/
+build/
+
+# Secrets
+**/src/main/resources/application-*.yml
+**/src/main/resources/application-*.properties
