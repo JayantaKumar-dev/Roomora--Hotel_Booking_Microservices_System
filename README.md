@@ -149,8 +149,8 @@ Step-by-step:
 ---
 
 ## 📊 Database Schemas
-### 🔐 Auth Service
 
+### 🔐 Microservice: `Auth Service`
 **`📝 User Table Schema`**
 
 | Column Name | Data Type | Constraints                 | Description                                        |
@@ -162,7 +162,174 @@ Step-by-step:
 | password    | VARCHAR   | NULLABLE                    | Encrypted password                                 |
 | role        | VARCHAR   | NULLABLE                    | Role of the user (ADMIN / PROPERTY\_OWNER / GUEST) |
 
+###########################################################################################################
 
+### 🏡 Microservice: `Property Service`
+1. **`📝 Property Table Schema`**
+
+| Column Name                | Data Type | Description                     |
+| -------------------------- | --------- | ------------------------------- |
+| `id` (PK)                  | BIGINT    | Unique property ID              |
+| `name`                     | VARCHAR   | Name of the property            |
+| `number_of_beds`           | INT       | Total beds in the property      |
+| `number_of_rooms`          | INT       | Total rooms                     |
+| `number_of_bathrooms`      | INT       | Number of bathrooms             |
+| `number_of_guests_allowed` | INT       | Max guests allowed              |
+| `property_owner_language`  | VARCHAR   | Preferred language of the owner |
+| `city_id` (FK)             | BIGINT    | Linked city                     |
+| `area_id` (FK)             | BIGINT    | Linked area                     |
+| `state_id` (FK)            | BIGINT    | Linked state                    |
+| `country_id` (FK)          | BIGINT    | Linked country                  |
+
+
+2. **`🛏️ Rooms Table Schema`**
+
+| Column Name        | Data Type | Description                                |
+| ------------------ | --------- | ------------------------------------------ |
+| `id` (PK)          | BIGINT    | Room ID                                    |
+| `room_type`        | VARCHAR   | Type of room (Single, Double, Suite, etc.) |
+| `base_price`       | DECIMAL   | Base price for booking                     |
+| `property_id` (FK) | BIGINT    | Linked property                            |
+
+
+3. **`📅 Room Availability Table Schema`**
+
+| Column Name       | Data Type | Description                                   |
+| ----------------- | --------- | --------------------------------------------- |
+| `id` (PK)         | BIGINT    | Availability ID                               |
+| `available_date`  | DATE      | Date of availability                          |
+| `available_count` | INT       | Number of rooms available on that date        |
+| `price`           | DECIMAL   | Price for that date (can override base price) |
+| `room_id` (FK)    | BIGINT    | Linked room                                   |
+
+
+4. **`🖼️ Property Photos Table Schema`**
+
+| Column Name        | Data Type | Description                                                  |
+| ------------------ | --------- | ------------------------------------------------------------ |
+| `id` (PK)          | BIGINT    | Photo ID                                                     |
+| `url`              | VARCHAR   | Image URL (stored in cloud storage like AWS S3 / Cloudinary) |
+| `property_id` (FK) | BIGINT    | Linked property                                              |
+
+
+5. **`🌍 Location Tables`**
+
+- Country
+
+| Column Name | Data Type | Description  |
+| ----------- | --------- | ------------ |
+| `id` (PK)   | BIGINT    | Country ID   |
+| `name`      | VARCHAR   | Country name |
+
+- State
+
+| Column Name       | Data Type | Description    |
+| ----------------- | --------- | -------------- |
+| `id` (PK)         | BIGINT    | State ID       |
+| `name`            | VARCHAR   | State name     |
+| `country_id` (FK) | BIGINT    | Linked country |
+
+- City
+
+| Column Name     | Data Type | Description  |
+| --------------- | --------- | ------------ |
+| `id` (PK)       | BIGINT    | City ID      |
+| `name`          | VARCHAR   | City name    |
+| `state_id` (FK) | BIGINT    | Linked state |
+
+- Area
+
+| Column Name    | Data Type | Description |
+| -------------- | --------- | ----------- |
+| `id` (PK)      | BIGINT    | Area ID     |
+| `name`         | VARCHAR   | Area name   |
+| `city_id` (FK) | BIGINT    | Linked city |
+
+
+**📌 Entity Relationship Diagram (ERD)**
+```mermaid
+erDiagram
+    Property {
+        int property_id PK
+        string name
+        string description
+        string address
+        decimal price
+        int city_id FK
+        int area_id FK
+        int state_id FK
+        int country_id FK
+        datetime created_at
+        datetime updated_at
+    }
+    
+    Rooms {
+        int room_id PK
+        int property_id FK
+        string room_type
+        decimal price
+        int capacity
+        string amenities
+        datetime created_at
+    }
+    
+    RoomAvailability {
+        int availability_id PK
+        int room_id FK
+        date available_date
+        boolean is_available
+        decimal price_for_date
+    }
+    
+    PropertyPhotos {
+        int photo_id PK
+        int property_id FK
+        string photo_url
+        boolean is_primary
+        int display_order
+    }
+    
+    Country {
+        int country_id PK
+        string country_name
+        string country_code
+    }
+    
+    State {
+        int state_id PK
+        int country_id FK
+        string state_name
+        string state_code
+    }
+    
+    City {
+        int city_id PK
+        int state_id FK
+        string city_name
+        string zip_code
+    }
+    
+    Area {
+        int area_id PK
+        int city_id FK
+        string area_name
+        string pincode
+    }
+
+    Property ||--o{ Rooms : "has"
+    Rooms ||--o{ RoomAvailability : "contains"
+    Property ||--o{ PropertyPhotos : "contains"
+    
+    Property }o--|| City : "located_in"
+    Property }o--|| Area : "situated_in"
+    Property }o--|| State : "within"
+    Property }o--|| Country : "belongs_to"
+    
+    Country ||--o{ State : "has"
+    State ||--o{ City : "contains"
+    City ||--o{ Area : "divided_into"
+
+```
 
 
 ## 🏗️ System Architecture
