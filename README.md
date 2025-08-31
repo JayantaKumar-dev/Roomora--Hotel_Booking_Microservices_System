@@ -62,6 +62,8 @@ It allows guests, property owners, and admins to interact in a seamless way — 
 
 ---
 
+## 🏗️ System Architecture
+
 ```mermaid
 flowchart TD
     Client([🧑 User]) -->|Login / Booking| Gateway[🌐 API Gateway]
@@ -138,13 +140,13 @@ Step-by-step:
 
 1. Clone repo.
 
-2. Configure .env or application.yml for DB & Stripe keys.
+2. Configure `.env` or `application.yml` for DB & Stripe keys.
 
-3. Run mvn clean install.
+3. Run `mvn clean install`.
 
-4. Start services in order (Eureka → Config → Gateway → Others).
+4. Start services in order (`Eureka → Config → Gateway → Others`).
 
-5. Access API docs (e.g., http://localhost:8080/swagger-ui).
+5. Access API docs (e.g., `http://localhost:8080/swagger-ui`).
 
 ---
 
@@ -331,7 +333,94 @@ erDiagram
 
 ```
 
+###########################################################################################################
 
-## 🏗️ System Architecture
-*(Add your diagram here later — for now placeholder)*  
+### 📦 Microservice: `Booking Service`
+1. **`📝 Bookings Table Schema`**
+
+| Column Name             | Data Type    | Constraints               | Description                                   |
+| ----------------------- | ------------ | ------------------------- | --------------------------------------------- |
+| `id`                    | BIGINT (PK)  | AUTO\_INCREMENT, NOT NULL | Unique booking identifier                     |
+| `name`                  | VARCHAR(100) | NOT NULL                  | Guest name                                    |
+| `email`                 | VARCHAR(100) | NOT NULL                  | Guest email address                           |
+| `mobile`                | VARCHAR(20)  | NOT NULL                  | Guest contact number                          |
+| `property_id`           | BIGINT       | NOT NULL                  | Reference to property (from Property Service) |
+| `room_id`               | BIGINT       | NOT NULL                  | Reference to specific room                    |
+| `property_name`         | VARCHAR      |                           | Name of the booked property                   |
+| `room_type`             | VARCHAR      |                           | Type of room (e.g., Deluxe, Standard)         |
+| `check_in_date`         | DATE         | NOT NULL                  | Check-in date                                 |
+| `check_out_date`        | DATE         | NOT NULL                  | Check-out date                                |
+| `total_price`           | DECIMAL      | NOT NULL                  | Total price for the booking                   |
+| `payment_status`        | VARCHAR(20)  |                           | Payment status (PENDING, PAID, FAILED)        |
+| `transaction_id`        | VARCHAR      |                           | Transaction identifier from payment gateway   |
+| `payment_intent_id`     | VARCHAR      |                           | Stripe payment intent ID                      |
+| `refund_transaction_id` | VARCHAR      |                           | Refund transaction ID (if cancelled)          |
+| `status`                | VARCHAR(20)  |                           | Booking status (CONFIRMED, CANCELLED, etc.)   |
+| `total_nights`          | INT          |                           | Total nights of stay                          |
+| `created_at`            | TIMESTAMP    | AUTO GENERATED            | Timestamp when booking was created            |
+| `updated_at`            | TIMESTAMP    | AUTO GENERATED            | Last updated timestamp                        |
+
+
+2. **`📅 BookingDate Table Schema`**
+
+| Column Name  | Data Type   | Constraints                        | Description                    |
+| ------------ | ----------- | ---------------------------------- | ------------------------------ |
+| `id`         | BIGINT (PK) | AUTO\_INCREMENT, NOT NULL          | Unique booking-date identifier |
+| `date`       | DATE        | NOT NULL                           | Specific date of the booking   |
+| `booking_id` | BIGINT (FK) | NOT NULL, REFERENCES `Bookings.id` | Links to a booking record      |
+
+
+**📌 Entity Relationship Diagram (ERD)**
+
+```mermaid
+erDiagram
+    BOOKINGS {
+        bigint id PK
+        string name
+        string email
+        string mobile
+        bigint property_id FK
+        bigint room_id FK
+        string property_name
+        string room_type
+        date check_in_date
+        date check_out_date
+        decimal total_price
+        string payment_status
+        string transaction_id
+        string payment_intent_id
+        string refund_transaction_id
+        string status
+        int total_nights
+        datetime created_at
+        datetime updated_at
+    }
+    
+    BOOKING_DATE {
+        bigint id PK
+        date date
+        bigint booking_id FK
+    }
+
+    BOOKINGS ||--o{ BOOKING_DATE : "contains"
+```
+
+---
+
+## 5️⃣ Access Application
+
+- API Gateway → `http://localhost:5555/`
+- Eureka Server → `http://localhost:8761/`
+- Admin Server → `http://localhost:8080/`
+- Auth Service → `http://localhost:8081/`
+- Property Service → `http://localhost:8082/`
+- Booking Service → `http://localhost:8084/`
+- Payment Service → `http://localhost:8085/`
+- Notification Service → `http://localhost:8083/`
+
+
+
+
+
+
 
