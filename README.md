@@ -62,7 +62,7 @@ It allows guests, property owners, and admins to interact in a seamless way — 
 
 ---
 
-## 🏗️ System Architecture
+## 🏢 System Architecture
 
 ```mermaid
 flowchart TD
