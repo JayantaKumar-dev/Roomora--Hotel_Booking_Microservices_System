@@ -418,6 +418,59 @@ erDiagram
 - Payment Service → `http://localhost:8085/`
 - Notification Service → `http://localhost:8083/`
 
+---
+
+
+## 5. **Getting Started**
+
+### 🔧 Prerequisites
+- Java 17+
+- Maven 3+
+- MySQL
+- Stripe Sandbox
+- IntelliJ IDEA / STS
+- AWS
+
+### ▶️ Running Locally
+```bash
+# Clone the repo
+git clone https://github.com/JayantaKumar-dev/Roomora.git my-project
+
+# Go into the project directory
+cd Roomora
+
+# Run a microservice (example: authservice)
+cd authservice
+mvn spring-boot:run
+
+```
+Note: You can use IDE UI instead
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 🤝 Contribution
+- Fork the repo 🍴
+- Create a new branch 🌿
+- Commit changes 💾
+- Open a PR 🔥
+
 
 
 
