@@ -423,13 +423,16 @@ erDiagram
 
 ## 5. **Getting Started**
 
-### 🔧 Prerequisites
-- Java 17+
-- Maven 3+
-- MySQL
-- Stripe Sandbox
-- IntelliJ IDEA / STS
-- AWS
+### 🔧 Prerequisites  
+
+Before running the project, make sure you have installed:  
+
+- ☕ Java **17+**   
+- 🛠️ Maven **3+**  
+- 🗄️ MySQL  
+- 💳 Stripe Sandbox Account  
+- 💻 IntelliJ IDEA / STS  
+- ☁️ AWS Account
 
 ### ▶️ Running Locally
 ```bash
@@ -443,33 +446,56 @@ cd Roomora
 cd authservice
 mvn spring-boot:run
 
+#Same for all other microservices
+
 ```
 Note: You can use IDE UI instead
 
+---
+
+## 📌 Roadmap
+ - 🐳 Dockerize all services
+ - ☸️ Deploy with Kubernetes
+ - 🤖 CI/CD with GitHub Actions
+ - 🎨 Add React/Angular frontend
+ - 📊 Monitoring (Grafana + Prometheus)
+
+---
+
+## 🧪 Future Enhancements
+
+- 🌐 Add React/Angular frontend
+- ☁️ Deploy to AWS / GCP with Docker & Kubernetes
+- 📊 Analytics Dashboard
+
+---
 
 
+## 📜 License  
+Distributed under the [MIT License](LICENSE).  
+See LICENSE for details.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---
 
 ## 🤝 Contribution
 - Fork the repo 🍴
 - Create a new branch 🌿
 - Commit changes 💾
 - Open a PR 🔥
+
+---
+
+## 👨‍💻 Author  
+
+**Jayant Samal**  
+💼 Full-Stack Java Developer | 🚀 Building Scalable Systems  
+
+- 📧 [Email Me](mailto:your_email@example.com)  
+- 🌐 [LinkedIn](https://www.linkedin.com/in/your-linkedin)  
+- 🐙 [GitHub](https://github.com/your-github)  
+
+
+
 
 
 
