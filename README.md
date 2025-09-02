@@ -14,6 +14,15 @@ It allows guests, property owners, and admins to interact in a seamless way — 
 
 ---
 
+## 💡 Why Roomora?
+- Built fully on **microservices** with Spring Cloud.
+- Implements **service discovery** + API gateway.
+- **Stripe integration** for real payments.
+- **Kafka-based notifications** for scalability.
+- Clean **ERD + Documentation** for developers.
+
+---
+
 ## 👥 Roles & Features
 ### 🏨 Guests (Customers)
 
@@ -59,6 +68,24 @@ It allows guests, property owners, and admins to interact in a seamless way — 
 | 💳 Payment Service | Stripe sandbox integration for payments |
 | 📢 Notification Service | Sends email/SMS notifications using Kafka |
 | 📡 Service Registry (Eureka) | Service discovery for microservices |
+
+---
+
+
+## 📂 Project Structure
+
+```bash
+Roomora/
+├── authservice/              # Authentication & Authorization
+├── bookingservice/           # Booking logic
+├── propertyservice/          # Property & Room management
+├── paymentservice/           # Payment integration
+├── notificationservice/      # Kafka + Email/SMS
+├── api-gateway/              # Central entry point
+├── service-registry-eureka/  # Eureka discovery
+├── adminserver/              # Monitoring
+
+```
 
 ---
 
@@ -164,7 +191,7 @@ Step-by-step:
 | password    | VARCHAR   | NULLABLE                    | Encrypted password                                 |
 | role        | VARCHAR   | NULLABLE                    | Role of the user (ADMIN / PROPERTY\_OWNER / GUEST) |
 
-###########################################################################################################
+---
 
 ### 🏡 Microservice: `Property Service`
 1. **`📝 Property Table Schema`**
@@ -333,7 +360,7 @@ erDiagram
 
 ```
 
-###########################################################################################################
+---
 
 ### 📦 Microservice: `Booking Service`
 1. **`📝 Bookings Table Schema`**
@@ -440,7 +467,7 @@ Before running the project, make sure you have installed:
 git clone https://github.com/JayantaKumar-dev/Roomora.git my-project
 
 # Go into the project directory
-cd Roomora
+cd my-project
 
 # Run a microservice (example: authservice)
 cd authservice
@@ -490,16 +517,9 @@ See LICENSE for details.
 **Jayant Samal**  
 💼 Full-Stack Java Developer | 🚀 Building Scalable Systems  
 
-- 📧 [Email Me](mailto:your_email@example.com)  
-- 🌐 [LinkedIn](https://www.linkedin.com/in/your-linkedin)  
-- 🐙 [GitHub](https://github.com/your-github)  
-
-
-
-
-
-
-
+- 📧 [Email Me](mailto:jayantatechnical28@gmail.com)  
+- 🎬 [YouTube](https://www.youtube.com/@JayantCodeCraft)  
+- 🐙 [GitHub](https://github.com/JayantaKumar-dev)  
 
 
 
